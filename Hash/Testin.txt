@@ -1,0 +1,213 @@
+def demo_hash_table_chaining():
+    print("\n" + "="*60)
+    print("HASH TABLE WITH SEPARATE CHAINING")
+    print("="*60)
+    
+    ht = HashTableChaining(size=7, hash_func='division')
+    
+    # Insert data
+    data = [
+        ("apple", 5),
+        ("banana", 3),
+        ("orange", 7),
+        ("grape", 2),
+        ("mango", 9),
+        ("peach", 4),
+        ("kiwi", 6)
+    ]
+    
+    for key, value in data:
+        ht.insert(key, value)
+        print(f"Inserted: {key} -> {value}")
+    
+    ht.display()
+    
+    # Operations
+    print("\n--- Operations ---")
+    print(f"Get 'banana': {ht.get('banana')}")
+    print(f"Contains 'grape': {ht.contains('grape')}")
+    print(f"Contains 'pear': {ht.contains('pear')}")
+    
+    ht.delete('orange')
+    print(f"Deleted 'orange'")
+    ht.display()
+    
+    # Visualize
+    viz = HashTableVisualizer()
+    viz.visualize_chaining(ht, "Hash Table - Separate Chaining")
+
+
+def demo_open_addressing():
+    print("\n" + "="*60)
+    print("HASH TABLE WITH OPEN ADDRESSING")
+    print("="*60)
+    
+    # Linear Probing
+    print("\n--- LINEAR PROBING ---")
+    ht_linear = HashTableOpenAddressing(size=7, probing='linear')
+    
+    data = [("apple", 5), ("banana", 3), ("orange", 7), ("grape", 2)]
+    
+    for key, value in data:
+        ht_linear.insert(key, value)
+    
+    ht_linear.display()
+    
+    # Quadratic Probing
+    print("\n--- QUADRATIC PROBING ---")
+    ht_quad = HashTableOpenAddressing(size=7, probing='quadratic')
+    
+    for key, value in data:
+        ht_quad.insert(key, value)
+    
+    ht_quad.display()
+    
+    # Double Hashing
+    print("\n--- DOUBLE HASHING ---")
+    ht_double = HashTableOpenAddressing(size=7, probing='double')
+    
+    for key, value in data:
+        ht_double.insert(key, value)
+    
+    ht_double.display()
+    
+    # Visualize
+    viz = HashTableVisualizer()
+    viz.visualize_open_addressing(ht_linear, "Linear Probing")
+    viz.visualize_open_addressing(ht_quad, "Quadratic Probing")
+    viz.visualize_open_addressing(ht_double, "Double Hashing")
+
+
+def demo_hash_set():
+    print("\n" + "="*60)
+    print("HASH SET OPERATIONS")
+    print("="*60)
+    
+    # Create sets
+    set1 = HashSet(size=10)
+    set2 = HashSet(size=10)
+    
+    # Add elements
+    for val in [1, 2, 3, 4, 5]:
+        set1.add(val)
+    
+    for val in [4, 5, 6, 7, 8]:
+        set2.add(val)
+    
+    print("Set 1:")
+    set1.display()
+    
+    print("\nSet 2:")
+    set2.display()
+    
+    # Set operations
+    print("\n--- Set Operations ---")
+    
+    union = set1.union(set2)
+    print("\nUnion:")
+    union.display()
+    
+    intersection = set1.intersection(set2)
+    print("\nIntersection:")
+    intersection.display()
+    
+    difference = set1.difference(set2)
+    print("\nDifference (Set1 - Set2):")
+    difference.display()
+
+
+def demo_hash_functions():
+    print("\n" + "="*60)
+    print("HASH FUNCTION COMPARISON")
+    print("="*60)
+    
+    keys = ["apple", "banana", "orange", "grape", "mango"]
+    size = 7
+    
+    print(f"\nHash values for size = {size}:\n")
+    print(f"{'Key':<12} {'Division':<12} {'Multiplication':<15} {'Polynomial':<12}")
+    print("-" * 60)
+    
+    for key in keys:
+        div = HashFunctions.division_method(key, size)
+        mult = HashFunctions.multiplication_method(key, size)
+        poly = HashFunctions.polynomial_rolling_hash(key, size)
+        
+        print(f"{key:<12} {div:<12} {mult:<15} {poly:<12}")
+
+
+def demo_collision_comparison():
+    print("\n" + "="*60)
+    print("COLLISION HANDLING COMPARISON")
+    print("="*60)
+    
+    data = [(f"key{i}", i) for i in range(15)]
+    
+    viz = HashTableVisualizer()
+    viz.compare_collision_methods(data)
+
+
+def demo_performance_analysis():
+    print("\n" + "="*60)
+    print("PERFORMANCE ANALYSIS")
+    print("="*60)
+    
+    sizes = [10, 20, 30]
+    
+    for size in sizes:
+        ht = HashTableChaining(size=size)
+        
+        # Insert random data
+        for i in range(int(size * 0.7)):
+            ht.insert(f"key{i}", i)
+        
+        chain_lengths = ht.get_chain_lengths()
+        avg_length = sum(chain_lengths) / len(chain_lengths)
+        max_length = max(chain_lengths)
+        
+        print(f"\nTable Size: {size}")
+        print(f"Load Factor: {ht.load_factor():.2f}")
+        print(f"Average Chain Length: {avg_length:.2f}")
+        print(f"Max Chain Length: {max_length}")
+        print(f"Total Collisions: {ht.collisions}")
+
+
+# ============== MAIN EXECUTION ==============
+
+if __name__ == "__main__":
+    print("\n" + "="*60)
+    print("COMPREHENSIVE HASH-BASED DATA STRUCTURES")
+    print("="*60)
+    
+    print("\nChoose a demo to run:")
+    print("1. Hash Table with Chaining")
+    print("2. Hash Table with Open Addressing")
+    print("3. Hash Set Operations")
+    print("4. Hash Function Comparison")
+    print("5. Collision Handling Comparison")
+    print("6. Performance Analysis")
+    print("7. Run All Demos")
+    
+    choice = input("\nEnter choice (1-7): ")
+    
+    if choice == '1':
+        demo_hash_table_chaining()
+    elif choice == '2':
+        demo_open_addressing()
+    elif choice == '3':
+        demo_hash_set()
+    elif choice == '4':
+        demo_hash_functions()
+    elif choice == '5':
+        demo_collision_comparison()
+    elif choice == '6':
+        demo_performance_analysis()
+    elif choice == '7':
+        demo_hash_table_chaining()
+        demo_open_addressing()
+        demo_hash_set()
+        demo_hash_functions()
+        demo_collision_comparison()
+        demo_performance_analysis()
+    else:
+        print("Invalid choice!")
