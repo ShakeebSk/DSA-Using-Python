@@ -1,0 +1,35 @@
+# ============== MAIN EXECUTION ==============
+if __name__ == "__main__":
+    print("COMPREHENSIVE TREE DATA STRUCTURES")
+    print("Choose a demo to run:")
+    print("1. Binary Tree")
+    print("2. Binary Search Tree")
+    print("3. AVL Tree")
+    print("4. Min Heap")
+    print("5. Trie")
+    print("6. Segment Tree")
+    print("7. Run All Demos")
+    
+    choice = input("\nEnter choice (1-7): ")
+    
+    if choice == '1':
+        demo_binary_tree()
+    elif choice == '2':
+        demo_bst()
+    elif choice == '3':
+        demo_avl()
+    elif choice == '4':
+        demo_heap()
+    elif choice == '5':
+        demo_trie()
+    elif choice == '6':
+        demo_segment_tree()
+    elif choice == '7':
+        demo_binary_tree()
+        demo_bst()
+        demo_avl()
+        demo_heap()
+        demo_trie()
+        demo_segment_tree()
+    else:
+        print("Invalid choice!")
